@@ -40,7 +40,7 @@ function checkResults() {
                     fs.appendFile('non-repeat.html', 'Dont repeat anymore', function (err) {
                         if (err) throw err;
                         console.log('Saved!');
-					});
+		    });
                 }
             });
         }
