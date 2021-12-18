@@ -1,9 +1,20 @@
 const axios = require('axios')
 var fs = require('fs');
 var http = require('http');
-
+const express = require('express')
+const app = express()
+const port = 3000;
 var botID = ''; // bot id here
 var schoolName = ''; // schoolName here
+
+app.get('/', (req, res) => {
+	checkResults();
+    res.send('Results Bot!')
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
+})
 
 function checkResults() {
     axios.get('https://www.betaclub.org/api?request=convention_info&year=2020&type=S&state=ga')
@@ -26,13 +37,12 @@ function checkResults() {
                             }
                         }
                     }
+                    fs.appendFile('non-repeat.html', 'Dont repeat anymore', function (err) {
+                        if (err) throw err;
+                        console.log('Saved!');
+					});
                 }
             });
         }
     });
 }
-
-http.createServer(function (req, res) {
-    checkResults();
-    res.write('Results Bot'); 
-}).listen(3000); 
